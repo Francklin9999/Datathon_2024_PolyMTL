@@ -1,0 +1,8 @@
+streamlit
+ta-lib # Must compile the binary locally first
+yfinance
+pandas
+numpy
+matplotlib
+plotly
+
