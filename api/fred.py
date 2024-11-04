@@ -1,24 +1,12 @@
-import requests
+from .base import *
 from dotenv import load_dotenv
 import os
 import pandas as pd
 import plotly.express as px
-import urllib3
-
 
 load_dotenv()
 
-API_KEY_FRED = os.getenv('API_KEY_FRED')
-
-def get_request(url, timeout=1000):
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    try:
-        response = requests.get(url, timeout=timeout, verify=False) 
-        response.raise_for_status()
-        return response
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching data: {e}")
-        return ""
+API_KEY_FRED = os.getenv("API_KEY_FRED")
 
 def get_fred_series_search(text_search):
     result = '+'.join(text_search.lower().split())
