@@ -15,17 +15,16 @@ from pages.page2 import page2
 load_config()
 
 pages = {
-    "Home": "home",
-    "Page 1": "page1",
-    "Page 2": "page2",
+    "Daily Stock Highlights": "home",
+    "View a stock": "page1",
+    "Summerize a Stock Document": "page2",
 }
 
 selected_page = st.selectbox("Select a page", list(pages.keys()))
 
-if selected_page == "Home":
-    pass
-    # home()
-elif selected_page == "Page 1":
+if selected_page == "Daily Stock Highlights":
+    home()
+elif selected_page == "View a stock":
     page1()
-elif selected_page == "Page 2":
+elif selected_page == "Summerize a Stock Document":
     page2()

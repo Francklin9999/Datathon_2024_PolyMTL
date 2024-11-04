@@ -2,6 +2,8 @@ from api.financial import get_fiancial_top_gainers, get_fiancial_top_losers
 import pandas as pd
 import plotly.graph_objs as go
 import streamlit as st
+from api.alpha import get_alpha_news
+import datetime
 
 
 def home() :
@@ -38,3 +40,28 @@ def home() :
     st.plotly_chart(fig_combined)
     st.plotly_chart(fig_gainers)
     st.plotly_chart(fig_losers)
+
+    st.write("Market Sentiment")
+
+    data = get_alpha_news()
+
+    if data:
+        st.subheader("Definitions")
+        st.write("Sentiment Score: ", data['sentiment_score_definition'])
+        st.write("Relevance Score: ", data['relevance_score_definition'])
+
+        # Display feed items
+        st.subheader("Feed Items")
+        for item in data['feed']:
+            st.markdown(f"### {item['title']}")
+            st.write(f"Published on: {item['time_published']}")
+            st.write(f"Authors: {', '.join(item['authors'])}")
+            st.write(f"Summary: {item['summary']}")
+            st.write(f"[Read more]({item['url']})")
+            
+            if item['banner_image']:
+                st.image(item['banner_image'], caption=item['title'], use_column_width=True)
+
+            st.write("---")
+    else :
+        st.write("No news available")

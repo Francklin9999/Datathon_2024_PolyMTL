@@ -69,7 +69,6 @@ def page1():
     if selected_stock and selected_period and selected_data:
         stock_data = yf.Ticker(selected_stock)
 
-        # Check if the information exists and display it
         row_data = []
 
         if stock_data.info.get("industry"):
@@ -78,21 +77,17 @@ def page1():
         if stock_data.info.get("sector"):
             row_data.append(stock_data.info["sector"])
 
-        # Combine city and country if both exist
         if stock_data.info.get("City") and stock_data.info.get("country"):
             row_data.append(f"{stock_data.info['City']}, {stock_data.info['country']}")
 
-        # Check if the website exists and create a link
         if stock_data.info.get("website"):
             row_data.append(f"[Company Website]({stock_data.info['website']})")
 
-        # Display the collected data in one row
-        if row_data:  # Only display if there's any data to show
+        if row_data:
             st.write(" | ".join(row_data))
 
-        # Long Business Summary toggle
         if stock_data.info.get("longBusinessSummary"):
-            with st.expander("Long Business Summary", expanded=False):  # Set expanded=True to show by default
+            with st.expander("Long Business Summary", expanded=False):  
                 st.write(stock_data.info["longBusinessSummary"])
 
         
@@ -143,14 +138,22 @@ def page1():
         if stock_data.info["sector"]:
             get_sector_data(stock_data.info, time_options[selected_period])
 
-        news_data = get_finnhub_market_new()
+        news_data = get_finnhub_news_by_company(selected_stock) 
+        
+        if not news_data:
+            news_data = get_finnhub_market_new()
 
+        st.title("Market News")
         for news in news_data:
             with st.expander(news["headline"], expanded=False):
-                st.image(news["image"], use_column_width=True)
-                st.write(f"**Source:** {news['source']}")
-                st.write(f"**Summary:** {news['summary']}")
-                st.write(f"[Read more]({news['url']})")
+                if news["image"]:
+                    st.image(news["image"], use_column_width=True)
+                if news['source']:
+                    st.write(f"**Source:** {news['source']}")
+                if news["summary"]:
+                    st.write(f"**Summary:** {news['summary']}")
+                if news["url"]:
+                    st.write(f"[Read more]({news['url']})")
 
 
 

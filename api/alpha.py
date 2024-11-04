@@ -1,6 +1,7 @@
 from .base import *
 from dotenv import load_dotenv
 import os
+import streamlit as st
 
 load_dotenv()
 
@@ -62,3 +63,13 @@ def get_alpha_company_earnings(company):
         return data.json()
     else:
         return None
+    
+@st.cache_data(ttl=3600)
+def get_alpha_news():
+    url = f"https://www.alphavantage.co/query?function=NEWS_SENTIMENT&apikey={API_KEY_ALPHA}"
+    data = get_request(url, 10)
+    if data:
+        return data.json()
+    else:
+        return None
+
