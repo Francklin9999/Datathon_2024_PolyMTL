@@ -19,19 +19,11 @@ def get_finnhub_news_by_company(company):
 
     data = finnhub_client.company_news(company, _from="2020-06-01", to=get_today_date())
 
-    print(data)
-
-    return (
-        data
-    )
+    return data
 
 def get_finnhub_market_new():
     finnhub_client = finnhub_connect()
 
     data = finnhub_client.general_news('general', min_id=0)
 
-    print(data)
-
-    return (
-        data
-        )
+    return data
