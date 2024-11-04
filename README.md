@@ -1,7 +1,7 @@
 
 # Datathon PolyMTL 2024 
 
-This application tends to provide a easy and friendly interface for data anlyste to see, get an anlysis stock in term of making market predictions.
+This application offers an intuitive and user-friendly interface tailored for data analysts, enabling them to easily access, visualize, and analyze stock data for market predictions. Powered by Amazon Bedrock's AI models, the application provides advanced capabilities, including predictive analytics, data summarization, and a chatbot for real-time insights. This tool is designed to support data-driven decision-making in financial markets, simplifying complex analyses and enhancing productivity for analysts.
 
 
 ## Authors
